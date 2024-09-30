@@ -14,7 +14,7 @@ import { useUserContext } from '../../context/UserContext'
 
 export function NavBar() { 
   const { cart } = useContext(CartContext);
-  const { token, logout } = useUserContext(useContext);
+  const { token, logout } = useUserContext();
   const navigate = useNavigate()
 
   const handleLogout = () => {

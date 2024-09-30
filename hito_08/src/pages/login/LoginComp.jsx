@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useUserContext } from '../../context/UserContext'; // Importar el contexto
-import { useNavigate } from 'react-router-dom'; // Para redireccionar
+import { useUserContext } from '../../context/UserContext'; 
+import { useNavigate } from 'react-router-dom';
 
 export const LoginComp = () => {
-  const { login, token} =  useUserContext(); // Destructuramos la función de login y el token
+  const { login, token} =  useUserContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Inicializa useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (token) {
-      navigate('/profile'); // Redirige al perfil si el usuario ya está autenticado
+      navigate('/profile');
     }
   }, [token, navigate]);
 
@@ -38,36 +38,41 @@ export const LoginComp = () => {
       return;
     }
 
-    // Intentar iniciar sesión
+    
     try {
-      const result = await login(email, password); // Usar la función de login del contexto
+      const result = await login(email, password); 
 
       if (!result.success) {
-        throw new Error(result.message); // Manejo de errores basado en la respuesta
+        throw new Error(result.message); 
       }
 
-      navigate('/profile'); // Redirige al componente Profile después de un login exitoso
+      navigate('/profile'); 
     } catch (err) {
-      setError(err.message); // Manejo de errores
+      setError(err.message); 
     }
   };
 
   return (
     <>
-      <h1>Login</h1>
-      {error && <h6 style={{ color: 'red' }}>{error}</h6>} {/* Mostrar mensaje de error */}
-      <Form onSubmit={onSubmitHandler}>
-        <Form.Group controlId="formBasicEmail">
+      <h1 style={{margin:'3rem', paddingLeft:'3rem', fontWeight:'bold'}}> Login</h1>
+      <div style={{margin:'3rem', paddingLeft:'3rem'}}>
+      {error && <h6 style={{ color: 'red' }}>{error}</h6>} 
+      <Form style={{padding:'3rem', margin:'3rem'}} onSubmit={onSubmitHandler}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
+          
           <Form.Control 
             type="email" 
             placeholder="Enter email" 
             onChange={onInputChange}
             value={email}
             name='email' />
+            <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control 
             type="password"
@@ -76,13 +81,16 @@ export const LoginComp = () => {
             value={password}
             name='password' />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
 
-        <Button variant="dark" type="submit">Login</Button>
+        <Button variant="dark" type="submit" style={{width:'6rem'}}>Login</Button>
       </Form>
+      </div>
     </>
   );
 };
 
 export default LoginComp;
-
 

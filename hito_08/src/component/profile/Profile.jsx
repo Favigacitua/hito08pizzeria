@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Button from "react-bootstrap/Button";
-import { useUserContext } from '../../context/UserContext'; // Cambia a useUser
+import { useUserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 export const Profile = () => {
-  const { logout, token, fetchUserProfile } = useUserContext(); // Obtener logout, token y la función fetchUserProfile del contexto
+  const { logout, token, fetchUserProfile } = useUserContext();
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
+  const [userData, setUserData] = useState(null);
 
   const handleLogout = () => {
     logout(); 
@@ -15,27 +15,24 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    // Verificamos el token y redirigimos si es inválido
     if (!token) {
       navigate('/login');
-      return; // Salimos si no hay token
+      return; 
     }
 
-    // Función para obtener los datos del usuario
     const loadUserData = async () => {
-      const result = await fetchUserProfile(); // Llama a la función para obtener datos del usuario
+      const result = await fetchUserProfile();
       if (result.success) {
-        setUserData(result.email); // Ajusta según lo que devuelva tu API
+        setUserData(result);
       } else {
-        console.error(result.message); // Maneja el error
-        navigate('/login'); // Redirigir si hay un error
+        console.error(result.message);
+        navigate('/login');
       }
     };
 
     loadUserData();
   }, [navigate, token, fetchUserProfile]);
 
-  // Si no se han cargado los datos del usuario, mostramos un mensaje de carga
   if (!userData) {
     return <p>Cargando datos del usuario...</p>;
   }
@@ -47,7 +44,7 @@ export const Profile = () => {
       </div>
       <div className='usuarioTexto'>
         <p style={{ marginBottom: '0px' }}><span style={{ fontWeight: 'bold' }}>Usuario: </span> {userData.email}</p>
-        <Button variant="dark" style={{ marginTop: '10px' }} onClick={handleLogout}>Cerrar sesión</Button>
+        <Button variant="dark" style={{ marginTop: '10px', marginTop:'2rem' }} onClick={handleLogout}>Cerrar sesión</Button>
       </div>
     </div>
   );

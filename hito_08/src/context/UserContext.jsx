@@ -3,27 +3,27 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const UserContext = createContext();
 
 export const useUserContext = () => {
-  return useContext(UserContext); // Función para acceder al contexto
+  return useContext(UserContext); 
 };
 
 export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(() => {
     const savedToken = localStorage.getItem('token');
     try {
-      return savedToken ? JSON.parse(savedToken) : null; // Manejo de errores
+      return savedToken ? JSON.parse(savedToken) : null; 
     } catch (error) {
       console.error('Error parsing token:', error);
-      return null; // Regresar null si hubo un error
+      return null; 
     }
   });
 
   const [email, setEmail] = useState(() => {
     const savedEmail = localStorage.getItem('email');
     try {
-      return savedEmail ? JSON.parse(savedEmail) : ''; // Manejo de errores
+      return savedEmail ? JSON.parse(savedEmail) : ''
     } catch (error) {
       console.error('Error parsing email:', error);
-      return ''; // Regresar cadena vacía si hubo un error
+      return ''
     }
   });
 
@@ -45,9 +45,10 @@ export const UserProvider = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
+        console.log('Token enviado al backend en registro:', data.token)
         return { success: true };
       } else {
-        // Devuelve solo el mensaje que proviene del servidor
+        
         return { success: false, message: data.message || data.error || 'Error desconocido' };
       }
     } catch (error) {
@@ -68,22 +69,25 @@ export const UserProvider = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
-        setToken(data.token); // Almacena el token
-        setEmail(email); // Almacena el email
-        return { success: true }; // Indica éxito
+        setToken(data.token); 
+        setEmail(email); 
+        console.log('Token enviado al backend en login:', data.token)
+        return { success: true }; 
       } else {
-        return { success: false, message: data.message || data.error || 'Error desconocido' }; // Manejo de errores
+        return { success: false, message: data.message || data.error || 'Error desconocido' }; 
       }
     } catch (error) {
-      return { success: false, message: error.message }; // Captura errores
+      return { success: false, message: error.message }; 
     }
   };
 
   const logout = () => {
-    setToken(''); // Limpia el token
-    setEmail(''); // Limpia el email
-    localStorage.removeItem('token'); // Elimina el token del localStorage
-    localStorage.removeItem('email'); // Elimina el email del localStorage
+    console.log('Token eliminado al cerrar sesión:', token)
+    setToken(''); 
+    setEmail(''); 
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('email');
+    console.log('Token eliminado'); 
   };
 
   const fetchUserProfile = async () => {
@@ -97,22 +101,16 @@ export const UserProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        return { success: true, email: data.email }; // Devuelve los datos del usuario
+        return { success: true, email: data.email }; 
       } else {
-        return { success: false, message: 'Error al obtener el perfil.' }; // Manejo de errores
+        return { success: false, message: 'Error al obtener el perfil.' }; 
       }
     } catch (error) {
-      return { success: false, message: error.message }; // Captura errores
+      return { success: false, message: error.message }; 
     }
   };
 
-  const value = {
-    token,
-    email,
-    register,
-    login,
-    logout,
-    fetchUserProfile,
+  const value = {token, email, register, login, logout, fetchUserProfile,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
