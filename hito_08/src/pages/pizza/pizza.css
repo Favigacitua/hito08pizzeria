@@ -1,0 +1,16 @@
+.pizzaContainer {
+    display: flex;
+    flex-wrap:  nowrap;
+    align-items: center;
+    margin: 2rem;
+    padding: 1rem;
+    border: 1px solid gray;
+        
+}
+
+
+.content {
+    margin-top: 3rem;
+    margin-left: 2rem;
+    text-align: center;
+}

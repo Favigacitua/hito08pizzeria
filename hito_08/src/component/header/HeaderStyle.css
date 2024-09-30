@@ -1,0 +1,43 @@
+.imagenfondo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw; 
+    height: 20rem; 
+    background-image: url('./pizzas.jpg'); 
+    background-size: cover;
+    background-position: center; 
+    overflow: hidden; 
+  }
+  
+  .imagenfondo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1; 
+  }
+  
+  .texto {
+    position: relative;
+    z-index: 2; 
+    color: white;
+    text-align: center; 
+  }
+  
+  .texto h1, .texto p {
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  .linea-separadora {
+    height: 2px;
+    background-color: white;
+    margin: 10px 0;
+    width: 80%;
+  }

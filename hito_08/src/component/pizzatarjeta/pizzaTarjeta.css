@@ -1,0 +1,51 @@
+
+.tarjCart {
+    
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin-left: 3rem;
+   
+    
+}
+.tarjContenido {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    height: 100px;
+    margin: 10px;
+    padding: 0;
+    align-items: center;
+    
+    
+    
+}
+
+.tarjetacard {
+    
+    display: flex;
+    flex-direction: row; 
+    align-items: center;   
+    width: 800px; 
+
+   
+
+}
+
+.imagenCart {
+    display: flex;
+    margin: 2px;
+    width: 150px;
+}
+
+.bodyCart {
+    display: flex;
+    width: 100px;
+    align-items: center; 
+    gap: 1rem; 
+    
+}
+
+
+
+

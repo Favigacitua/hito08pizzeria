@@ -1,0 +1,15 @@
+
+.notFoundText {
+    
+    margin: 5rem;    
+}
+
+.notFoundImg img{
+    position: relative;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: end;
+
+}

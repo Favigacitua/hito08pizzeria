@@ -1,0 +1,14 @@
+
+
+.cardP{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: auto;
+   
+}
+
+.tarjeta{
+    display: flex;
+   
+}
